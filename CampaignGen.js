@@ -387,18 +387,18 @@ var IDef_WizardFavor = new ItemDefinition("the favor of a wizard");
 var IDef_TrueName = new ItemDefinition("true name of [C]"); //can be used to bind demons and elementals (maybe even to make airship), ressurect
 var IDef_Prophecy = new ItemDefinition("prophecy"); //can be interpreted
 
-var IDef_PowerfulAlly = new ItemDefinition("powerful ally");
-var IDef_Lore = new ItemDefinition("lore");
+var IDef_PowerfulAlly = new ItemDefinition("a powerful ally");
+var IDef_Lore = new ItemDefinition("exotic lore");
 var IDef_AccessToSite = new ItemDefinition("access to [S]");
 var IDef_Murder = new ItemDefinition("proof of murder");
 var IDef_Fame = new ItemDefinition("fame");
-var IDef_Drugs = new ItemDefinition("drugs");
+var IDef_Drugs = new ItemDefinition("potent drugs");
 var IDef_Intimidation = new ItemDefinition("intimidation");
 
 var IDef_Blackmail = new ItemDefinition("blackmail");
 var IDef_SecretDocuments = new ItemDefinition("secret documents");
 var IDef_TreasureMap = new ItemDefinition("treasure map");
-var IDef_IncriminatingEvidence = new ItemDefinition("incriminating evidence");
+var IDef_IncriminatingEvidence = new ItemDefinition("incriminating evidence against [C]");
 
 var IDef_CommonKnowledge = new ItemDefinition("common knowledge"); //like rumors
 var IDef_UncommonKnowledge = new ItemDefinition("uncommon knowledge"); //like from an informant
@@ -414,6 +414,8 @@ var IDef_EnchantedSword = new ItemDefinition("Enchanted Sword");
 var IDef_AncientRelic = new ItemDefinition("Ancient Relic");
 var IDef_MagicMirror = new ItemDefinition("Magic Mirror");
 
+var IDef_GuardsOvercome = new ItemDefinition("guards overcome");
+
 var IG_Info = [IDef_LocationOfCharacter, IDef_WeaknessOfCharacter, IDef_IdentityOfCharacter];
 var IG_Treasure = [IDef_MagicGem, IDef_EnchantedSword, IDef_AncientRelic];
 var IG_UnderworldGoods = [IDef_TreasureMap, IDef_UncommonKnowledge, IDef_Blackmail, IDef_SecretDocuments, IDef_Drugs, IDef_IncriminatingEvidence, IDef_AccessToSite, IDef_LocationOfCharacter, IDef_WeaknessOfCharacter, IDef_IdentityOfCharacter]
@@ -427,7 +429,8 @@ var IG_RareAndValuable = IG_Info.concat(IG_Treasure).concat([IDef_AccessToSite, 
 
 
 //Quest Definitions
-var QDef_GenericKill = new QuestDefinition("kill [C]", [], [IDef_Murder]);
+var QDef_GenericKill = new QuestDefinition("kill [C]", [], [IDef_Murder,IDef_GuardsOvercome]);
+var QDef_SneakPastGuards = new QuestDefinition("sneak past guards", [], [IDef_GuardsOvercome]);
 var QDef_GenericAssassinate = new QuestDefinition("assassinate [C]", [IDef_LocationOfCharacter, IDef_AccessToSite], [IDef_Murder, IDef_Intimidation]);
 
 //var QDef_BossFightFirst = new QuestDefinition("Defeat local villain [C]", [], IG_Info);
@@ -437,8 +440,10 @@ var QDef_GenericAssassinate = new QuestDefinition("assassinate [C]", [IDef_Locat
 var QDef_BossFightPlanning = new QuestDefinition("defeat Villain [C] using knowledge and planning", IG_Info, AllItemDefs);
 var QDef_BossFightRelics = new QuestDefinition("defeat Villain [C] using legendary items", IG_Treasure, AllItemDefs);
 var QDef_BossFightAlliance = new QuestDefinition("defeat Villain [C] with an alliance", [IDef_PowerfulAlly, IDef_PowerfulAlly, IDef_PowerfulAlly], AllItemDefs);
+var QDef_BossFightUnmask = new QuestDefinition("defeat Villain [C] by unmasking them", [IDef_PowerfulAlly, IDef_IncriminatingEvidence, IDef_GuardsOvercome], AllItemDefs);
 
-var QG_BossFights = [QDef_BossFightPlanning, QDef_BossFightRelics, QDef_BossFightAlliance];
+
+var QG_BossFights = [QDef_BossFightPlanning, QDef_BossFightRelics, QDef_BossFightAlliance,QDef_BossFightUnmask];
 
 var QDef_DragonFight = new QuestDefinition("defeat the dragon", [IDef_AccessToSite], IG_Treasure.concat(IDef_Fame));
 var QDef_FollowTreasureMap = new QuestDefinition("follow treasure map", [IDef_AccessToSite, IDef_TreasureMap], IG_Treasure);
@@ -518,14 +523,14 @@ var QDef_Brew = new QuestDefinition("brew recipe", [IDef_RareIngredients, IDef_L
 
 
 /*
+Boss - secret villain. requires:
+evidence of wrongdoing
+powerful ally
+defeat henchmen
+
 Masquerade
-Woo decadent noble (drugs)
 Arrange marriages
-Helping star-crossed lovers
 Time travel
-Sailing
-Airships
-Teleportation gates
 Parallel universe
 Cure amnesia
 Enter dreams

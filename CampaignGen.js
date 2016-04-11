@@ -1,6 +1,7 @@
 "use strict"
 
 
+
 //add a method to remove multiple elements from an array
 if (!Array.prototype.remove) {
     Array.prototype.remove = function(vals, all) {

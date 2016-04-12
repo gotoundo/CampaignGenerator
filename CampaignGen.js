@@ -63,7 +63,7 @@ function shuffle(array) {
 var AllQuestDefs = [];
 var AllItemDefs = [];
 var CastOfCharacters = [];
-var names = ["Aelianus", "Aelius", "Aemilianus", "Aemilius", "Aetius", "Agrippa", "Ahenobarbus", "Albanus", "Albinus", "Albus", "Antoninus", "Antonius", "Appius", "Aquila", "Aquilinus", "Atilius", "Augustinus", "Augustus", "Aulus", "Aurelianus", "Aurelius", "Avilius", "Avitus", "Balbinus", "Balbus", "Blandinus", "Blandus", "Blasius", "Brutus", "Caecilius", "Caelinus", "Caelius", "Caesar", "Caius", "Camillus", "Cassian", "Cassianus", "Cassius", "Celsus", "Cicero", "Claudius", "Cloelius", "Cnaeus", "Cornelius", "Crispinus", "Crispus", "Cyprianus", "Decimus", "Diocletianus", "Domitianus", "Domitius", "Drusus", "Duilius", "Egnatius", "Ennius", "Fabianus", "Fabius", "Fabricius", "Faustinus", "Faustus", "Felix", "Festus", "Flavianus", "Flavius", "Florianus", "Florus", "Fulvius", "Gaius", "Gallus", "Germanus", "Glaucia", "Gnaeus", "Gordianus", "Gratianus", "Hadrianus", "Herminius", "Hilarius", "Horatius", "Hortensius", "Ianuarius", "Iovianus", "Iovita", "Iulianus", "Iulius", "Iunius", "Iuvenalis", "Januarius", "Jovian", "Julius", "Junius", "Laelius", "Laurentinus", "Laurentius", "Livianus", "Livius", "Longinus", "Lucanus", "Lucianus", "Lucilius", "Lucius", "Lucretius", "Manlius", "Marcellinus", "Marcellus", "Marcius", "Marcus", "Marianus", "Marinus", "Marius", "Martialis", "Martinus", "Maxentius", "Maximianus", "Maximilianus", "Maximinus", "Maximus", "Naevius", "Nerva", "Nonus", "Octavianus", "Octavius", "Otho", "Ovidius", "Paulinus", "Paulus", "Petronius", "Plinius", "Pompeius", "Pompilius", "Pomponius", "Pontius", "Porcius", "Priscus", "Publius", "Quintilianus", "Quintillus", "Quintinus", "Quintus", "Regulus", "Rufinus", "Rufus", "Sabinus", "Saturninus", "Scaevola", "Secundinus", "Secundus", "Seneca", "Septimius", "Septimus", "Sergius", "Servius", "Severianus", "Severinus", "Severus", "Sextilius", "Sextus", "Silvanus", "Spurius", "Tacitus", "Tarquinius", "Tatianus", "Tatius", "Terentius", "Tertius", "Thracius", "Tiberius", "Tiburtius", "Titianus", "Titus", "Traianus", "Tullius", "Valens", "Valentinianus", "Valentinus", "Valerianus", "Valerius", "Varinius", "Varius", "Vergilius", "Verginius", "Vespasianus", "Vibianus", "Vibius", "Vinicius", "Vitus"]
+var names = ["Aelianus", "Aelius", "Aemilianus", "Aemilius", "Aetius", "Agrippa", "Ahenobarbus", "Albanus", "Albinus", "Albus", "Antoninus", "Antonius", "Appius", "Aquila", "Aquilinus", "Atilius", "Augustinus", "Augustus", "Aulus", "Aurelianus", "Aurelius", "Avilius", "Avitus", "Balbinus", "Balbus", "Blandinus", "Blandus", "Blasius", "Brutus", "Caecilius", "Caelinus", "Caelius", "Caesar", "Caius", "Camillus", "Cassian", "Cassianus", "Cassius", "Celsus", "Cicero", "Claudius", "Cloelius", "Cnaeus", "Cornelius", "Crispinus", "Crispus", "Cyprianus", "Decimus", "Diocletianus", "Domitianus", "Domitius", "Drusus", "Duilius", "Egnatius", "Ennius", "Fabianus", "Fabius", "Fabricius", "Faustinus", "Faustus", "Felix", "Festus", "Flavianus", "Flavius", "Florianus", "Florus", "Fulvius", "Gaius", "Gallus", "Germanus", "Glaucia", "Gnaeus", "Gordianus", "Gratianus", "Hadrianus", "Herminius", "Hilarius", "Horatius", "Hortensius", "Ianuarius", "Iovianus", "Iovita", "Iulianus", "Iulius", "Iunius", "Iuvenalis", "Januarius", "Jovian", "Julius", "Junius", "Laelius", "Laurentinus", "Laurentius", "Livianus", "Livius", "Longinus", "Lucanus", "Lucianus", "Lucilius", "Lucius", "Lucretius", "Manlius", "Marcellinus", "Marcellus", "Marcius", "Marcus", "Marianus", "Marinus", "Marius", "Martialis", "Martinus", "Maxentius", "Maximianus", "Maximilianus", "Maximinus", "Maximus", "Naevius", "Nerva", "Nonus", "Octavianus", "Octavius", "Otho", "Ovidius", "Paulinus", "Paulus", "Petronius", "Plinius", "Pompeius", "Pompilius", "Pomponius", "Pontius", "Porcius", "Priscus", "Publius", "Quintilianus", "Quintillus", "Quintinus", "Quintus", "Regulus", "Rufinus", "Rufus", "Sabinus", "Saturninus", "Scaevola", "Secundinus", "Secundus", "Seneca", "Septimius", "Septimus", "Sergius", "Servius", "Severianus", "Severinus", "Severus", "Sextilius", "Sextus", "Silvanus", "Spurius", "Tacitus", "Tarquinius", "Tatianus", "Tatius", "Terentius", "Tertius", "Thracius", "Tiberius", "Tiburtius", "Titianus", "Titus", "Traianus", "Tullius", "Valens", "Valentinianus", "Valentinus", "Valerianus", "Valerius", "Varinius", "Varius", "Vergilius", "Verginius", "Vespasianus", "Vibianus", "Vibius", "Vinicius", "Vitus", "Aelia", "Antonina", "Augustina", "Caecilia", "Caelina", "Decima", "Domitia", "Fabricia", "Faustina", "Flaviana", "Floriana", "Fulvia", "Gratiana", "Hilaria", "Iulia", "Julia", "Junia", "Liviana", "Longina", "Lucia", "Lucilia", "Paula", "Pomponia", "Porcia", "Priscilla", "Rufina", "Sabina", "Tacita", "Tatiana", "Tullia", "Valentina", "Valeria", "Virginia", "Aeliana", "Aemilia", "Agrippina", "Aurelia", "Balbina", "Blandina", "Cassia", "Cloelia", "Cornelia", "Drusa", "Fabia", "Fabiola", "Germana", "Herminia", "Hortensia", "Iuliana", "Iunia", "Juliana", "Laurentia", "Luciana", "Lucretia", "Marcella", "Marina", "Maximiliana", "Octavia", "Paulina", "Petronia", "Valeriana", "Varinia", "Vita", "Aemiliana", "Albina", "Antonia", "Aquilina", "Augusta", "Aureliana", "Caelia", "Camilla", "Claudia", "Domitilla", "Drusilla", "Fabiana", "Fausta", "Flavia", "Hadriana", "Horatia", "Laelia", "Laurentina", "Lucilla", "Marcellina", "Marcia", "Mariana", "Martina", "Maxima", "Prisca", "Quintina", "Saturnina", "Septima", "Severina", "Titiana", "Verginia", "Vibiana"]
 
 var siteNames = []
 
@@ -188,6 +188,7 @@ class CampaignPlayer {
         this.turn = 0;
         this.currentChapter = 1;
         this.currentSession = 1;
+        this.aboutToPrintSession = true;
 
     }
 
@@ -197,7 +198,8 @@ class CampaignPlayer {
         this.currentChapter++;
     }
 
-    WriteCurrentSession() {
+    AnnounceNextSession() {
+        this.aboutToPrintSession = true;
         writeln("> Quest " + this.currentSession + "");
         this.currentSession++;
     }
@@ -207,7 +209,7 @@ class CampaignPlayer {
         this.campaign = campaign;
         this.turn = 1;
         this.WriteCurrentChapter();
-        this.WriteCurrentSession();
+        this.AnnounceNextSession();
         this.GainQuest(this.campaign.firstQuest)
         this.PlayQuest();
 
@@ -223,21 +225,33 @@ class CampaignPlayer {
         var playedQuest = false;
         var chosenQuest = null;
         for (var i = 0; i < this.questLog.length; i++) {
-            var possibleQuest = this.questLog[i];
-            if (!possibleQuest.complete && containsAllElements(this.inventory, possibleQuest.requiredItems)) {
 
-                chosenQuest = possibleQuest;
-                possibleQuest.complete = true;
+            if (!this.questLog[i].complete && containsAllElements(this.inventory, this.questLog[i].requiredItems)) { //chose this quest
+
+                chosenQuest = this.
+                questLog[i];
+                chosenQuest.complete = true;
                 playedQuest = true;
+
+
+                if (this.aboutToPrintSession) {
+                    var rootOfChosenQuest = chosenQuest;
+                    var lootOfRoot = chosenQuest.awardedItems[0];
+                    while (!rootOfChosenQuest.mainQuest) {
+                        lootOfRoot = rootOfChosenQuest.awardedItems[0];
+                        rootOfChosenQuest = rootOfChosenQuest.parentQuest;
+                    }
+                    writeln("The party hopes to gain "+lootOfRoot.name);
+                }
 
 
                 var stringStart = "The party ";
 
-                if (possibleQuest.requiredItems.length > 0) {
+                if (chosenQuest.requiredItems.length > 0) {
                     write("With ");
-                    for (var i = 0; i < possibleQuest.requiredItems.length; i++) {
-                        write(possibleQuest.requiredItems[i].name);
-                        if (possibleQuest.requiredItems.length == 2) {
+                    for (var i = 0; i < chosenQuest.requiredItems.length; i++) {
+                        write(chosenQuest.requiredItems[i].name);
+                        if (chosenQuest.requiredItems.length == 2) {
                             if (i == 0)
                                 write(" and ")
                             else
@@ -245,14 +259,14 @@ class CampaignPlayer {
                         }
                         else
                             write(", ");
-                        if (possibleQuest.requiredItems.length > 2 && i == possibleQuest.requiredItems.length - 2)
+                        if (chosenQuest.requiredItems.length > 2 && i == chosenQuest.requiredItems.length - 2)
                             write("and ");
                     }
 
                     stringStart = stringStart.toLowerCase();
                 }
 
-                write(stringStart + possibleQuest.name + " ");
+                write(stringStart + chosenQuest.name + " ");
 
 
                 var lastQuestOfSession = false;
@@ -269,14 +283,14 @@ class CampaignPlayer {
                 writeln("");
 
 
-
-
-                if (possibleQuest.mainQuest && this.currentChapter <= this.campaign.chapterCount  ) {
+                if (possibleQuest.mainQuest && this.currentChapter <= this.campaign.chapterCount) {
                     this.WriteCurrentChapter();
                 }
 
                 if (lastQuestOfSession)
-                    this.WriteCurrentSession();
+                    this.AnnounceNextSession();
+                else
+                    this.aboutToPrintSession = false;
 
                 if (possibleQuest.parentQuest != null) {
                     this.GainQuest(possibleQuest.parentQuest);
@@ -369,6 +383,7 @@ class Quest {
     constructor(definition) {
         this.name = definition.name;
         this.definition = definition;
+        this.headline = definition.name;
         this.complete = false;
 
         this.mainQuest = false;
@@ -445,8 +460,8 @@ var IDef_ProofOfMurder = new ItemDefinition("proof of the kill");
 var IDef_CapturedFugitive = new ItemDefinition("captured fugitive");
 var IDef_ProofOfDevotion = new ItemDefinition("proof of devotion");// not used yet
 var IDef_Fame = new ItemDefinition("fame");
-var IDef_BountyNotice = new ItemDefinition("bounty notice");
-var IDef_Drugs = new ItemDefinition("potent drugs");
+var IDef_BountyNotice = new ItemDefinition("a bounty notice");
+var IDef_Drugs = new ItemDefinition("some potent drugs");
 var IDef_Intimidation = new ItemDefinition("intimidation");
 
 //var IDef_Blackmail = new ItemDefinition("blackmail");
@@ -510,25 +525,29 @@ var QDef_GenericAssassinate = new QuestDefinition("assassinates [C]", [IDef_Loca
 
 var QDef_GenericKill = new QuestDefinition("battles the medusa", [IDef_MagicMirror], [IDef_ProofOfMurder]);
 
-var QDef_FreedomLabyrinth = new QuestDefinition("escapes the labyrinth", [], [IDef_Freedom]);
-var QDef_FreedomJailer = new QuestDefinition("fools the jailer", [], [IDef_Freedom]);
-var QDef_FreedomTorturer = new QuestDefinition("overpowers the torturer", [], [IDef_Freedom]);
-var QDef_FreedomColliseum = new QuestDefinition("battles through the colliseum", [], [IDef_Freedom]);
-var QDef_FreedomDungeon = new QuestDefinition("battles through the colliseum", [], [IDef_Freedom]);
+var QDef_FreedomLabyrinth = new QuestDefinition("escapes the labyrinth after being thrown inside", [], [IDef_Freedom]);
+var QDef_FreedomLabyrinth = new QuestDefinition("escapes from [S]", [], [IDef_Freedom]);
+var QDef_FreedomJailer = new QuestDefinition("fools the jailer after being captured", [], [IDef_Freedom]);
+var QDef_FreedomTorturer = new QuestDefinition("overpowers the torturer after being betrayed and captured", [], [IDef_Freedom]);
+var QDef_FreedomColliseum = new QuestDefinition("battles through the colliseum after being captured", [], [IDef_Freedom]);
+var QDef_FreedomDungeon = new QuestDefinition("navigates the dungeon after being captured", [], [IDef_Freedom]);
+var QDef_FreedomIllusion = new QuestDefinition("escapes an idyllic illusion", [], [IDef_Freedom]);
+
 
 //Boss Fights
-//var QDef_DefeatLocalVillain = new QuestDefinition("defeat local villain [C]", IG_Info, AllItemDefs);
 var QDef_BossFightPlanning = new QuestDefinition("defeats Villain [C] using knowledge and planning", [IDef_LocationOfCharacter, IDef_WeaknessOfCharacter, IDef_IdentityOfCharacter], AllItemDefs);
 var QDef_BossFightRelics = new QuestDefinition("defeats Villain [C] using legendary items", [IDef_MagicGem, IDef_EnchantedSword, IDef_AncientRelic], AllItemDefs);
 var QDef_BossFightAlliance = new QuestDefinition("defeats Villain [C] with an alliance", [IDef_PowerfulAlly, IDef_PowerfulAlly, IDef_PowerfulAlly], AllItemDefs);
 var QDef_BossFightUnmask = new QuestDefinition("defeats Villain [C] by unmasking them", [IDef_PowerfulAlly, IDef_IncriminatingEvidence, IDef_GuardsOvercome], AllItemDefs);
 var QDef_BossFightAssassinate = new QuestDefinition("defeats Villain [C] by assassination", [IDef_LocationOfCharacter, IDef_AccessToSite, IDef_GuardsOvercome], AllItemDefs);
+var QDef_BossFightEscape = new QuestDefinition("defeats Villain [C]", [IDef_IdentityOfCharacter, IDef_Freedom, IDef_AccessToSite, IDef_GuardsOvercome], AllItemDefs);
+var QDef_BossFightPlague = new QuestDefinition("defeats the plague", [IDef_MagicPotion, IDef_Lore], AllItemDefs);
 
-var QG_BossFights = [QDef_BossFightPlanning, QDef_BossFightRelics, QDef_BossFightAlliance, QDef_BossFightUnmask, QDef_BossFightAssassinate];
+var QG_BossFights = [QDef_BossFightPlanning, QDef_BossFightRelics, QDef_BossFightAlliance, QDef_BossFightUnmask, QDef_BossFightAssassinate, QDef_BossFightEscape, QDef_BossFightPlague];
 
 var QDef_GenericBeastFight = new QuestDefinition("kills a mythical beast", [], IG_MagicLoot.concat(IDef_Fame));
 var QDef_DragonFight = new QuestDefinition("defeats the dragon", [IDef_AccessToSite], IG_MagicLoot.concat(IDef_Fame));
-var QDef_FollowTreasureMap = new QuestDefinition("pursues a treasure", [IDef_AccessToSite, IDef_TreasureMap], IG_MagicLoot);
+var QDef_FollowTreasureMap = new QuestDefinition("uncovers a hoard", [IDef_TreasureMap, IDef_AccessToSite], IG_MagicLoot);
 
 var QDef_InterrogateCharacter = new QuestDefinition("interrogates [C]", [IDef_LocationOfCharacter], IG_Info);
 var QDef_TrackCharacter = new QuestDefinition("tracks [C]", [IDef_IdentityOfCharacter], [IDef_LocationOfCharacter]);
@@ -544,7 +563,7 @@ var QDef_InfiltrateSite = new QuestDefinition("infiltrates [S]", [], [IDef_Acces
 var QDef_LongTravel = new QuestDefinition("travels a great distance, past [S]", [], [IDef_AccessToSite]);
 var QDef_TravelSailing = new QuestDefinition("sails past [S]", [], [IDef_AccessToSite]);
 var QDef_TravelAirship = new QuestDefinition("takes an airship over [S]", [], [IDef_AccessToSite]);
-var QDef_TravelTeleportation = new QuestDefinition("uses a teleportation circle to [S]", [], [IDef_AccessToSite]);
+var QDef_TravelTeleportation = new QuestDefinition("uses a teleportation circle in [S]", [], [IDef_AccessToSite]);
 
 
 var QDef_StealFromSite = new QuestDefinition("steals from [S]", [IDef_AccessToSite], IG_MagicLoot.concat(IG_Documents));
@@ -598,7 +617,7 @@ var QDef_WizardTaskConfinement = new QuestDefinition("frees a mage from confinem
 var QDef_WizardTaskMeteor = new QuestDefinition("recovers fragments of a fallen star for a mage", [], [IDef_WizardFavor])
 
 var QDef_StealGuardCostumes = new QuestDefinition("steals guard uniforms", [IDef_GuardsOvercome], [IDef_Costumes]);
-var QDef_SneakByInCostume = new QuestDefinition("sneaks inside with a disguise", [IDef_Costumes], [IDef_AccessToSite])
+var QDef_SneakByInCostume = new QuestDefinition("sneaks inside [S] with a disguise", [IDef_Costumes], [IDef_AccessToSite])
 var QDef_AttendMasqueradeUninvited = new QuestDefinition("attends the masquerade", [IDef_Costumes], [IDef_IdentityOfCharacter, IDef_LocationOfCharacter])
 var QDef_AttendMasqueradeInvited = new QuestDefinition("attends the masquerade", [IDef_NobleFavor], [IDef_IdentityOfCharacter, IDef_LocationOfCharacter])
 
@@ -609,8 +628,8 @@ var QDef_Extort = new QuestDefinition("extort for favor from [C]", [IDef_Intimid
 var QDef_ReadSecretDocuments = new QuestDefinition("desipher secret documents", [IDef_SecretDocuments], IG_Info)
 
 //Magical Endevours
-var QDef_ResearchLore = new QuestDefinition("research forgotten lore", [], [IDef_Lore]);
-var QDef_Brew = new QuestDefinition("brew recipe", [IDef_RareIngredients, IDef_Lore], [IDef_MagicPotion, IDef_Drugs])
+var QDef_ResearchLore = new QuestDefinition("researches forgotten texts", [], [IDef_Lore]);
+var QDef_Brew = new QuestDefinition("brews the recipe", [IDef_RareIngredients, IDef_Lore], [IDef_MagicPotion, IDef_Drugs])
 
 
 
@@ -620,12 +639,33 @@ var QDef_Brew = new QuestDefinition("brew recipe", [IDef_RareIngredients, IDef_L
 
 
 /*
+Notes
+
+Introductory summary - a main quest contains a string describing what the villain/challenge is up to and why the part would want to defeat them
+
+At the start of each new session, search through parents recursively until you find a a task with a main quest parent, and find the item being given, and announce it as the goal of this Session
+
+
 Boss - secret villain. requires:
 evidence of wrongdoing
 powerful ally
 defeat henchmen
 
-Masquerade
+A bandit king ravages the countryside
+A necromancer unleashes a plague upon the populate
+A corrupt baron taxes the peasantry to starvation
+A dragon claims a province of its own
+An usurper seizes the thrown and begins a reign of terror
+A corrupted druid causes an uprising 
+A sinister advisor misleads the king into ruin
+A cult is abducting and murdering people in order to resurrect a dead God 
+
+chase sequence
+opera
+enchanting music
+curse of sleep upon kingdom
+psychadelic
+
 Arrange marriages
 Time travel
 Parallel universe

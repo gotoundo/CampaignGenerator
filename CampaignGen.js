@@ -195,15 +195,12 @@ class CampaignPlayer {
 
     AnnounceNextChapter() {
         //this.aboutToPrintChapter = true;
-        writeln("");
-        write("---- Chapter " + this.currentChapter + "");
-        this.currentChapter++;
+
     }
 
     AnnounceNextSession() {
         //this.aboutToPrintSession = true;
-        write("> Quest " + this.currentSession + "");
-        this.currentSession++;
+
     }
 
 
@@ -232,10 +229,10 @@ class CampaignPlayer {
                 chosenQuest.complete = true;
                 playedQuest = true;
 
-
-
                 if (this.aboutToPrintChapter) {
-                    this.AnnounceNextChapter();
+                    writeln("");
+                    write("<h3>Chapter " + this.currentChapter + "</h3>");
+                    this.currentChapter++;
 
                     var rootOfChosenQuest = chosenQuest;
                     var lootOfRoot = chosenQuest.awardedItems[0];
@@ -244,16 +241,16 @@ class CampaignPlayer {
                         rootOfChosenQuest = rootOfChosenQuest.parentQuest;
                     }
                     if (rootOfChosenQuest)
-                        writeln(", in which the party attempts to " + rootOfChosenQuest.headline);
+                        writeln("<i>In which the party attempts to " + rootOfChosenQuest.headline + ".</i>");
                 }
 
 
                 if (this.aboutToPrintSession) {
-                    this.AnnounceNextSession();
+                    write("<h4>Quest " + this.currentSession + "</h4>");
+                    this.currentSession++;
 
-                    if (chosenQuest.mainQuest)
-                    { 
-                        writeln(", in which the party makes a desperate gamble!");
+                    if (chosenQuest.mainQuest) {
+                        writeln("<i>In which the party makes a desperate gamble!</i>");
                     }
                     else {
                         var rootOfChosenQuest = chosenQuest;
@@ -263,50 +260,52 @@ class CampaignPlayer {
                             rootOfChosenQuest = rootOfChosenQuest.parentQuest;
                         }
                         if (lootOfRoot)
-                            writeln(", in which the party aims to acquire " + lootOfRoot.name);
+                            writeln("<i>In which the party aims to acquire " + lootOfRoot.name + "</i>");
                     }
 
                 }
 
 
 
-
+                var totalReport = "";
                 var stringStart = "The party ";
 
                 if (chosenQuest.requiredItems.length > 0) {
-                    write("With ");
+                    totalReport+="With ";
                     for (var i = 0; i < chosenQuest.requiredItems.length; i++) {
-                        write(chosenQuest.requiredItems[i].name);
+                        totalReport+=(chosenQuest.requiredItems[i].name);
                         if (chosenQuest.requiredItems.length == 2) {
                             if (i == 0)
-                                write(" and ")
+                                totalReport+=" and ";
                             else
-                                write(", ");
+                                totalReport+=", ";
                         }
                         else
-                            write(", ");
+                            totalReport+=", ";
                         if (chosenQuest.requiredItems.length > 2 && i == chosenQuest.requiredItems.length - 2)
-                            write("and ");
+                            totalReport+="and ";
                     }
 
                     stringStart = stringStart.toLowerCase();
                 }
 
-                write(stringStart + chosenQuest.name + " ");
+                totalReport+=(stringStart + chosenQuest.name + " ");
 
 
                 var lastQuestOfSession = false;
 
                 if (chosenQuest.awardedItems.length > 0) {
-                    write("and gains ");
+                    totalReport+="and gains ";
                     for (var itemNum = 0; itemNum < chosenQuest.awardedItems.length; itemNum++) {
-                        write(chosenQuest.awardedItems[itemNum].name + " ");
+                        totalReport+=(chosenQuest.awardedItems[itemNum].name + " ");
                         this.inventory.push(chosenQuest.awardedItems[itemNum]);
                         if (majorQuestItems.includes(chosenQuest.awardedItems[itemNum]))
                             lastQuestOfSession = true;
                     }
                 }
-                writeln("");
+                
+                writebullet(totalReport);
+                
 
 
                 this.aboutToPrintChapter = chosenQuest.mainQuest && this.currentChapter <= this.campaign.chapterCount;
@@ -319,11 +318,11 @@ class CampaignPlayer {
         }
 
         if (chosenQuest == this.campaign.rootQuest)
-            writeln("Final Boss Defeated! Campaign Won!");
+            writeln("<h2>Campaign Over!</h2>");
         else if (playedQuest)
             this.PlayQuest();
         else {
-            writeln("No more quests! Campaign Failed!");
+            writeln("<h2>No more quests! Campaign Failed!</h2>");
         }
     }
 
@@ -565,7 +564,7 @@ var QDef_BossFightRelics = new QuestDefinition("defeats Cult Leader [C] using le
 QDef_BossFightRelics.headline = "thwart [C], leader of a doomsday cult, using the three relics of prophecy"
 var QDef_BossFightAlliance = new QuestDefinition("defeats the scourge [C] with an alliance", [IDef_PowerfulAlly, IDef_PowerfulAlly, IDef_PowerfulAlly], AllItemDefs);
 QDef_BossFightAlliance.headline = "overcome the realm-threatening scourge [C] by assembling an alliance"
-var QDef_BossFightUnmask = new QuestDefinition("defeats Vizir [C] by unmasking them", [IDef_PowerfulAlly, IDef_IncriminatingEvidence, IDef_GuardsOvercome], AllItemDefs);
+var QDef_BossFightUnmask = new QuestDefinition("defeats Vizier [C] by unmasking them", [IDef_PowerfulAlly, IDef_IncriminatingEvidence, IDef_GuardsOvercome], AllItemDefs);
 QDef_BossFightUnmask.headline = "reveal the corrupt advisor [C] by proving their guilt"
 var QDef_BossFightAssassinate = new QuestDefinition("assassinates the tyrant [C], restoring justice to the realm", [IDef_LocationOfCharacter, IDef_AccessToSite, IDef_GuardsOvercome], AllItemDefs);
 QDef_BossFightAssassinate.headline = "assassinate the tyrant [C], whose cruelty and perversity knows no bounds"
@@ -793,14 +792,14 @@ function GenerateCampaign() {
     generateOutput = "";
     GenerateSiteNames();
 
-    writeln("Generating Campaign!");
+    //writeln("Generating Campaign!");
     currentCampaign = new Campaign(5);
 
-    writeln("Playing Campaign!");
+    //writeln("Playing Campaign!");
     currentCampaignPlayer = new CampaignPlayer();
     currentCampaignPlayer.PlayCampaign(currentCampaign);
 
-    writeln("Campaign Complete!");
+    //writeln("Campaign Complete!");
     document.getElementById('SummaryOutput').innerHTML = generateOutput;
 }
 

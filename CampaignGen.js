@@ -92,20 +92,16 @@ class Campaign {
     }
 
     GeneratePlot(chapters) {
-        this.rootQuest = randomObject(QG_BossFights).CreateQuest();//randomObject(QG_BossFights).CreateQuest();
+        this.rootQuest = randomObject(QG_BossFights).CreateQuest(); //create final main quest
         this.rootQuest.mainQuest = true;
-        // this.rootQuest.target = new Character(randomObject(names));
         this.GenerateTasks(this.rootQuest, chapters);
     }
 
     GenerateTasks(parentQuest, chapter) { //takes a quest instance and makes tasks for all its required items. If this is a main quest, it generates additional tasks and another link in the main quest.
         if (chapter > 0 || parentQuest.mainQuest) {
 
-            if (!parentQuest)
-                write("owch");
-
-
-            var mainQuestItemNum = Math.floor(Math.random() * parentQuest.definition.requiredItemDefs.length) // if this is a main quest, pick a random required item to spawn another main quest
+            var mainQuestItemNum =  0; //the first required item of a main quest spawns another main quest
+             //var mainQuestItemNum = Math.floor(Math.random() * parentQuest.definition.requiredItemDefs.length) // if this is a main quest, pick a random required item to spawn another main quest
 
             for (var taskItemDefNum = 0; taskItemDefNum < parentQuest.definition.requiredItemDefs.length; taskItemDefNum++) //for each item required by the task, create a quest to get that item
             {
@@ -132,7 +128,10 @@ class Campaign {
         var suitableQuestDefs = AllQuestDefs.slice();
 
         if (mainQuest)
+        {
+          //  while(suitableQuestDefs)
             suitableQuestDefs = [randomObject(QG_BossFights)];
+        }
         else
             suitableQuestDefs.remove(QG_BossFights);
 
@@ -573,7 +572,11 @@ QDef_BossFightEscape.headline = "thwart mastermind [C] by escaping imprisonment 
 var QDef_BossFightPlague = new QuestDefinition("cures the terrible plague", [IDef_MagicPotion, IDef_Lore], AllItemDefs);
 QDef_BossFightPlague.headline = "cure a virulent plague that is sweeping across the land"
 
-var QG_BossFights = [QDef_BossFightPlanning, QDef_BossFightRelics, QDef_BossFightAlliance, QDef_BossFightUnmask, QDef_BossFightAssassinate, QDef_BossFightEscape, QDef_BossFightPlague];
+var QDef_BossFightBandit = new QuestDefinition("defeats the bandit leader [C] and liberates the countryside", [IDef_AccessToSite, IDef_GuardsOvercome], AllItemDefs);
+QDef_BossFightBandit.headline = "defeat a band of outlaws ravaging the countryside, lead by the disgraced knight [C]";
+
+var QG_BossFights = [QDef_BossFightPlanning, QDef_BossFightRelics, QDef_BossFightAlliance, QDef_BossFightUnmask, QDef_BossFightAssassinate,
+QDef_BossFightEscape, QDef_BossFightPlague, QDef_BossFightBandit];
 
 var QDef_GenericBeastFight = new QuestDefinition("kills a mythical beast", [], IG_MagicLoot.concat(IDef_Fame));
 var QDef_DragonFight = new QuestDefinition("defeats the dragon", [IDef_AccessToSite], IG_MagicLoot.concat(IDef_Fame));
@@ -788,12 +791,16 @@ var currentCampaign;
 var currentCampaignPlayer;
 var generateOutput = "";
 
+var chapterCount = 5;
+
 function GenerateCampaign() {
     generateOutput = "";
     GenerateSiteNames();
+    
+    chapterCount = parseInt(document.getElementById("chapterCount").value, 10);
 
     //writeln("Generating Campaign!");
-    currentCampaign = new Campaign(5);
+    currentCampaign = new Campaign(chapterCount);
 
     //writeln("Playing Campaign!");
     currentCampaignPlayer = new CampaignPlayer();

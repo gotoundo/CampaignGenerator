@@ -4,7 +4,7 @@
 
 //add a method to remove multiple elements from an array
 if (!Array.prototype.remove) {
-    Array.prototype.remove = function(vals, all) {
+    Array.prototype.remove = function (vals, all) {
         var i, removedItems = [];
         if (!Array.isArray(vals)) vals = [vals];
         for (var j = 0; j < vals.length; j++) {
@@ -101,8 +101,8 @@ class Campaign {
         if (chapter > 0 || parentQuest.mainQuest) {
 
 
-            var mainQuestItemNum =  0; //the first required item of a main quest spawns another main quest
-             //var mainQuestItemNum = Math.floor(Math.random() * parentQuest.definition.requiredItemDefs.length) // if this is a main quest, pick a random required item to spawn another main quest
+            //var mainQuestItemNum =  0; //the first required item of a main quest spawns another main quest
+            var mainQuestItemNum = Math.floor(Math.random() * parentQuest.definition.requiredItemDefs.length) // if this is a main quest, pick a random required item to spawn another main quest
 
 
 
@@ -112,7 +112,7 @@ class Campaign {
                 requiredItemDefs.splice(Math.floor(Math.random() * requiredItemDefs.length, 1)) //remove items until at max items required;
 
 
-            var mainQuestItemNum = Math.floor(Math.random() * requiredItemDefs.length) // if this is a main quest, pick a random required item to spawn another main quest
+            //var mainQuestItemNum = Math.floor(Math.random() * requiredItemDefs.length) // if this is a main quest, pick a random required item to spawn another main quest
 
             for (var taskItemDefNum = 0; taskItemDefNum < requiredItemDefs.length; taskItemDefNum++) //for each item required by the task, create a quest to get that item
             {
@@ -138,9 +138,8 @@ class Campaign {
 
         var suitableQuestDefs = AllQuestDefs.slice();
 
-        if (mainQuest)
-        {
-          //  while(suitableQuestDefs)
+        if (mainQuest) {
+            //  while(suitableQuestDefs)
             suitableQuestDefs = [randomObject(QG_BossFights)];
         }
         else
@@ -292,13 +291,18 @@ class CampaignPlayer {
                     stringStart = stringStart.toLowerCase();
                 }
 
-                totalReport += (stringStart + chosenQuest.name + " ");
+                totalReport += (stringStart + chosenQuest.name + "");
 
 
                 var lastQuestOfSession = false;
 
                 if (chosenQuest.awardedItems.length > 0) {
-                    totalReport += "and gains ";
+
+                    if (chosenQuest.mainQuest) {
+                        totalReport += ". In the aftermath, the party inadvertantly gains something curious: "
+                    }
+                    else
+                        totalReport += " and gains ";
                     for (var itemNum = 0; itemNum < chosenQuest.awardedItems.length; itemNum++) {
                         totalReport += (chosenQuest.awardedItems[itemNum].name + " ");
                         this.inventory.push(chosenQuest.awardedItems[itemNum]);
@@ -501,13 +505,14 @@ var IDef_IncriminatingEvidence = new ItemDefinition("incriminating evidence agai
 //var IDef_CommonKnowledge = new ItemDefinition("common knowledge"); //like rumors
 //var IDef_UncommonKnowledge = new ItemDefinition("uncommon knowledge"); //like from an informant
 
+var IDef_WoundVillain = new ItemDefinition("the wounding of the villain");
 
 
 var IDef_LocationOfCharacter = new ItemDefinition("awareness of [C]'s location");
 var IDef_WeaknessOfCharacter = new ItemDefinition("the key to [C]'s weakness");
 var IDef_IdentityOfCharacter = new ItemDefinition("the secret of [C]'s true identity");
 
-var IDef_MagicPotion = new ItemDefinition("a magic potion"); //can be used to cure plague
+var IDef_MagicPotion = new ItemDefinition(["a magic potion", "a blessed salve", "a special oil", "a rare tincture"]); //can be used to cure plague
 var IDef_RareIngredients = new ItemDefinition("some rare ingredients"); //can be used to make potion, drugs
 var IDef_MagicGem = new ItemDefinition("a magic gem");
 var IDef_EnchantedSword = new ItemDefinition(["an enchanted sword", "a mythical axe", "the lance of destiny"]);
@@ -516,6 +521,7 @@ var IDef_MagicMirror = new ItemDefinition("a magic mirror");
 var IDef_Egg = new ItemDefinition("a curious egg");
 
 var IDef_GuardsOvercome = new ItemDefinition("the defeat of the guards");
+var IDef_EvilSource = new ItemDefinition("the source of the evil");
 
 var IDef_Costumes = new ItemDefinition("costumes");
 
@@ -525,7 +531,7 @@ var IDef_PeaceSpirits = new ItemDefinition("harmony amongst the spirits");
 var IDef_PeaceNaturalDisaster = new ItemDefinition("the end of the natural disaster");
 
 
-var IG_Info = [IDef_LocationOfCharacter, IDef_WeaknessOfCharacter, IDef_IdentityOfCharacter, IDef_Lore]; //IDef_Lore
+var IG_Info = [IDef_LocationOfCharacter, IDef_WeaknessOfCharacter, IDef_IdentityOfCharacter, IDef_Lore, IDef_EvilSource]; //IDef_Lore
 
 var IG_CommonKnowledge = [IDef_BountyNotice]; //like rumors
 
@@ -533,7 +539,7 @@ var IG_MagicLoot = [IDef_MagicPotion, IDef_MagicMirror, IDef_MagicGem, IDef_Ench
 
 var IG_UnderworldGoods = [IDef_TreasureMap, IDef_SecretDocuments, IDef_Drugs, IDef_IncriminatingEvidence, IDef_AccessToSite, IDef_LocationOfCharacter, IDef_WeaknessOfCharacter, IDef_IdentityOfCharacter]
 var IG_NobleRewards = [IDef_PowerfulAlly, IDef_TreasureMap, IDef_SecretDocuments, IDef_IncriminatingEvidence, IDef_AccessToSite, IDef_LocationOfCharacter, IDef_IdentityOfCharacter]
-var IG_WizardRewards = [IDef_RareIngredients, IDef_TrueName, IDef_Prophecy, IDef_PowerfulAlly, IDef_AccessToSite, IDef_LocationOfCharacter, IDef_WeaknessOfCharacter, IDef_IdentityOfCharacter]
+var IG_WizardRewards = [IDef_RareIngredients, IDef_TrueName, IDef_Prophecy, IDef_PowerfulAlly, IDef_AccessToSite, IDef_LocationOfCharacter, IDef_WeaknessOfCharacter, IDef_IdentityOfCharacter, IDef_WoundVillain]
 var IG_Documents = [IDef_TreasureMap, IDef_SecretDocuments, IDef_IncriminatingEvidence]
 
 
@@ -546,8 +552,8 @@ var IG_RareAndValuable = IG_Info.concat(IG_MagicLoot).concat([IDef_AccessToSite,
 
 
 var QDef_GenericKill = new QuestDefinition("kills [C]", [], [IDef_ProofOfMurder, IDef_GuardsOvercome]);
-var QDef_BrazenKill = new QuestDefinition("brazenly attacks [C]", [], [IDef_ProofOfMurder, IDef_GuardsOvercome]);
-var QDef_AmbushKill = new QuestDefinition("ambushes [C]", [], [IDef_ProofOfMurder, IDef_GuardsOvercome]);
+var QDef_BrazenKill = new QuestDefinition("brazenly attacks [C]", [], [IDef_ProofOfMurder, IDef_GuardsOvercome, IDef_WoundVillain]);
+var QDef_AmbushKill = new QuestDefinition("ambushes [C]", [], [IDef_ProofOfMurder, IDef_GuardsOvercome, IDef_WoundVillain]);
 var QDef_CaptureFugitive = new QuestDefinition("apprehends a wanted scofflaw", [IDef_LocationOfCharacter], [IDef_CapturedFugitive]);
 var QDef_SneakPastGuards = new QuestDefinition("sneaks past the guards", [], [IDef_GuardsOvercome]);
 var QDef_GenericAssassinate = new QuestDefinition("assassinates [C]", [IDef_LocationOfCharacter, IDef_AccessToSite], [IDef_ProofOfMurder, IDef_Intimidation]);
@@ -568,30 +574,30 @@ var QDef_FreedomIllusion = new QuestDefinition("escapes an idyllic illusion", []
 
 
 //Boss Fights
-var QDef_BossFightPlanning = new QuestDefinition("defeats Usurper [C] using knowledge and planning", [IDef_LocationOfCharacter, IDef_WeaknessOfCharacter, IDef_IdentityOfCharacter], AllItemDefs);
+var QDef_BossFightPlanning = new QuestDefinition("defeats Usurper [C] using knowledge and planning", [IDef_IdentityOfCharacter, IDef_LocationOfCharacter, IDef_WeaknessOfCharacter], AllItemDefs);
 QDef_BossFightPlanning.headline = "defeat the Usurper [C] with knowledge and planning, having seen the peasantry suffer under their rule";
-var QDef_BossFightRelics = new QuestDefinition("defeats Cult Leader [C] using legendary items", [IDef_MagicGem, IDef_EnchantedSword, IDef_AncientRelic], AllItemDefs);
+var QDef_BossFightRelics = new QuestDefinition("defeats Cult Leader [C] using legendary items", [IDef_IdentityOfCharacter, IDef_MagicGem, IDef_EnchantedSword, IDef_AncientRelic], AllItemDefs);
 QDef_BossFightRelics.headline = "thwart [C], leader of a doomsday cult, using the three relics of prophecy"
 var QDef_BossFightAlliance = new QuestDefinition("defeats the scourge [C] with an alliance", [IDef_PowerfulAlly, IDef_PowerfulAlly, IDef_PowerfulAlly], AllItemDefs);
 QDef_BossFightAlliance.headline = "overcome the realm-threatening scourge [C] by assembling an alliance"
-var QDef_BossFightUnmask = new QuestDefinition("defeats Vizier [C] by unmasking them", [IDef_PowerfulAlly, IDef_IncriminatingEvidence, IDef_GuardsOvercome], AllItemDefs);
+var QDef_BossFightUnmask = new QuestDefinition("defeats Vizier [C] by unmasking them", [IDef_IdentityOfCharacter, IDef_PowerfulAlly, IDef_IncriminatingEvidence, IDef_GuardsOvercome], AllItemDefs);
 QDef_BossFightUnmask.headline = "reveal the corrupt advisor [C] by proving their guilt"
 var QDef_BossFightAssassinate = new QuestDefinition("assassinates the tyrant [C], restoring justice to the realm", [IDef_LocationOfCharacter, IDef_AccessToSite, IDef_GuardsOvercome], AllItemDefs);
 QDef_BossFightAssassinate.headline = "assassinate the tyrant [C], whose cruelty and perversity knows no bounds"
 var QDef_BossFightEscape = new QuestDefinition("defeats the mastermind [C]", [IDef_IdentityOfCharacter, IDef_Freedom, IDef_AccessToSite, IDef_GuardsOvercome], AllItemDefs);
 QDef_BossFightEscape.headline = "thwart mastermind [C] by escaping imprisonment and ultimately confronting them in their sanctuary"
-var QDef_BossFightPlague = new QuestDefinition("cures the terrible plague", [IDef_MagicPotion, IDef_Lore], AllItemDefs);
+var QDef_BossFightPlague = new QuestDefinition("cures the terrible plague being spread by [C]", [IDef_EvilSource, IDef_MagicPotion, IDef_Lore], AllItemDefs);
 QDef_BossFightPlague.headline = "cure a virulent plague that is sweeping across the land"
 
-var QDef_BossFightBandit = new QuestDefinition("defeats the bandit leader [C] and liberates the countryside", [IDef_AccessToSite, IDef_GuardsOvercome], AllItemDefs);
+var QDef_BossFightBandit = new QuestDefinition("defeats the bandit leader [C] and liberates the countryside", [IDef_IdentityOfCharacter, IDef_AccessToSite, IDef_GuardsOvercome], AllItemDefs);
 QDef_BossFightBandit.headline = "defeat a band of outlaws ravaging the countryside, lead by the disgraced knight [C]";
 
-var QDef_BossFightDruid = new QuestDefinition("defeats the archdruid [C]", [IDef_PeaceSpirits, IDef_PeaceNaturalDisaster, IDef_AccessToSite], AllItemDefs);
+var QDef_BossFightDruid = new QuestDefinition("defeats the archdruid [C]", [IDef_IdentityOfCharacter, IDef_PeaceSpirits, IDef_PeaceNaturalDisaster, IDef_AccessToSite], AllItemDefs);
 QDef_BossFightDruid.headline = "defeat the archdruid [C]"
 
 
-var QG_BossFights = [QDef_BossFightPlanning, QDef_BossFightRelics, QDef_BossFightAlliance, QDef_BossFightUnmask, QDef_BossFightAssassinate, 
-QDef_BossFightEscape, QDef_BossFightPlague, QDef_BossFightBandit, QDef_BossFightDruid];
+var QG_BossFights = [QDef_BossFightPlanning, QDef_BossFightRelics, QDef_BossFightAlliance, QDef_BossFightUnmask, QDef_BossFightAssassinate,
+    QDef_BossFightEscape, QDef_BossFightPlague, QDef_BossFightBandit, QDef_BossFightDruid];
 
 
 var QDef_GenericBeastFight = new QuestDefinition("kills a mythical beast", [], IG_MagicLoot.concat(IDef_Fame));
@@ -603,14 +609,18 @@ var QDef_MagicItemTrade = new QuestDefinition("trades with a collector", IG_Magi
 QDef_MagicItemTrade.maxItemsRequired = 1;
 
 
+var QDef_Heroics = new QuestDefinition("wins great prestige", [IDef_WoundVillain], [IDef_Fame]);
+
+//IDef_WoundVillain
+
 
 var QDef_InterrogateCharacter = new QuestDefinition("interrogates [C]", [IDef_LocationOfCharacter], IG_Info);
 var QDef_TrackCharacter = new QuestDefinition("tracks [C]", [IDef_IdentityOfCharacter], [IDef_LocationOfCharacter]);
 
 var QDef_GainPowerfulAlly = new QuestDefinition("makes a great sacrifice at the altar of the gods", [], [IDef_PowerfulAlly]);
-var QDef_Z = new QuestDefinition("delves into the dwarven mines", [], [IDef_MagicGem]);
-var QDef_X = new QuestDefinition("steals from the fabled horde", [], [IDef_AncientRelic]);
-var QDef_Y = new QuestDefinition("steals from the armory of the master smith", [], [IDef_EnchantedSword]);
+var QDef_AbandonedMine = new QuestDefinition("delves into the treacherous depths an abandoned mine", [], [IDef_MagicGem]);
+var QDef_FabledHorde = new QuestDefinition("steals from a fabled hoard of treasure", [], IG_MagicLoot);
+var QDef_MasterSmith = new QuestDefinition("plunders the armory of a master smith", [], [IDef_EnchantedSword]);
 
 //Accessing Sites
 var QDef_BribeGuard = new QuestDefinition("bribes a guard at [S]", [], [IDef_AccessToSite]);
@@ -651,7 +661,7 @@ var QDef_LocalPostings = new QuestDefinition("reads local postings", [], IG_Comm
 var QDef_HearRumor = new QuestDefinition("hears rumors", [], IG_CommonKnowledge)
 
 //Favors
-var QDef_RallyTheCommonFolk = new QuestDefinition("rallies the common folk", [IDef_CommonFavor], [IDef_PowerfulAlly]);
+var QDef_RallyTheCommonFolk = new QuestDefinition("rallies the common folk", [IDef_CommonFavor], [IDef_PowerfulAlly,IDef_WoundVillain]);
 
 var QDef_CashInUnderworldFavor = new QuestDefinition("cashes in underworld favor", [IDef_UnderworldFavor], IG_UnderworldGoods)
 var QDef_FavorForUnderworldContact = new QuestDefinition("does a job for an underworld contact", [], [IDef_UnderworldFavor])
@@ -684,7 +694,7 @@ var QDef_Extort = new QuestDefinition("extort for favor from [C]", [IDef_Intimid
 var QDef_ReadSecretDocuments = new QuestDefinition("desipher secret documents", [IDef_SecretDocuments], IG_Info)
 
 //Magical Endevours
-var QDef_ResearchLore = new QuestDefinition("researches forgotten texts", [], [IDef_Lore]);
+var QDef_ResearchLore = new QuestDefinition("researches forgotten texts", [], [IDef_Lore, IDef_EvilSource]);
 var QDef_Brew = new QuestDefinition("brews the recipe", [IDef_RareIngredients, IDef_Lore], [IDef_MagicPotion, IDef_Drugs])
 
 
@@ -822,7 +832,7 @@ var chapterCount = 5;
 function GenerateCampaign() {
     generateOutput = "";
     GenerateSiteNames();
-    
+
     chapterCount = parseInt(document.getElementById("chapterCount").value, 10);
 
     //writeln("Generating Campaign!");

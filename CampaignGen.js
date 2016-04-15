@@ -583,19 +583,16 @@ QDef_BossFightEscape.headline = "thwart mastermind [C] by escaping imprisonment 
 var QDef_BossFightPlague = new QuestDefinition("cures the terrible plague", [IDef_MagicPotion, IDef_Lore], AllItemDefs);
 QDef_BossFightPlague.headline = "cure a virulent plague that is sweeping across the land"
 
-<<<<<<< HEAD
 var QDef_BossFightBandit = new QuestDefinition("defeats the bandit leader [C] and liberates the countryside", [IDef_AccessToSite, IDef_GuardsOvercome], AllItemDefs);
 QDef_BossFightBandit.headline = "defeat a band of outlaws ravaging the countryside, lead by the disgraced knight [C]";
 
-var QG_BossFights = [QDef_BossFightPlanning, QDef_BossFightRelics, QDef_BossFightAlliance, QDef_BossFightUnmask, QDef_BossFightAssassinate,
-QDef_BossFightEscape, QDef_BossFightPlague, QDef_BossFightBandit];
-=======
 var QDef_BossFightDruid = new QuestDefinition("defeats the archdruid [C]", [IDef_PeaceSpirits, IDef_PeaceNaturalDisaster, IDef_AccessToSite], AllItemDefs);
 QDef_BossFightDruid.headline = "defeat the archdruid [C]"
 
 
-var QG_BossFights = [QDef_BossFightPlanning, QDef_BossFightRelics, QDef_BossFightAlliance, QDef_BossFightUnmask, QDef_BossFightAssassinate, QDef_BossFightEscape, QDef_BossFightPlague, QDef_BossFightDruid];
->>>>>>> 20a795fcb5b66af4245714db2f9014884545df18
+var QG_BossFights = [QDef_BossFightPlanning, QDef_BossFightRelics, QDef_BossFightAlliance, QDef_BossFightUnmask, QDef_BossFightAssassinate, 
+QDef_BossFightEscape, QDef_BossFightPlague, QDef_BossFightBandit, QDef_BossFightDruid];
+
 
 var QDef_GenericBeastFight = new QuestDefinition("kills a mythical beast", [], IG_MagicLoot.concat(IDef_Fame));
 var QDef_DragonFight = new QuestDefinition("defeats the dragon", [IDef_AccessToSite], IG_MagicLoot.concat(IDef_Fame));
@@ -829,11 +826,8 @@ function GenerateCampaign() {
     chapterCount = parseInt(document.getElementById("chapterCount").value, 10);
 
     //writeln("Generating Campaign!");
-<<<<<<< HEAD
+
     currentCampaign = new Campaign(chapterCount);
-=======
-    currentCampaign = new Campaign(100);
->>>>>>> 20a795fcb5b66af4245714db2f9014884545df18
 
     //writeln("Playing Campaign!");
     currentCampaignPlayer = new CampaignPlayer();

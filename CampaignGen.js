@@ -70,6 +70,9 @@ var siteNames = []
 var siteThemes = ["Forest", "Hill", "Jungle", "Marshland", "Swampland", "Misty", "Mysterious", "Haunted", "Holy", "Volcanic", "Wooded", "Hidden", "Imperial", "Royal", "Island", "Coastal", "Arctic", "Underwater", "Tropical", "Elven", "Dwarven", "Ancient"]
 var siteNouns = ["Necropolis", "Arch", "Castle", "Citadel", "College", "Colossus", "Fortress", "Gardens", "Library", "Lighthouse", "Monument", "Observatory", "Palace", "Shrine", "Statue", "Temple", "Tower", "Wall", "Ruins", "Dungeon", "Hideout"]
 
+var politicalNames = ["Empire", "Kingdom", "Emirate", "Confederacy", "Armada", "Horde", "Queendom", "Court", "Metropolis", "Dictate"];
+var factionNames = ["House", "House", "Temple", "Guild"]
+
 
 function GenerateSiteNames() {
     siteNames = [];
@@ -393,7 +396,7 @@ class QuestDefinition {
         newQuest.targetCharacter = new Character(randomObject(names)); //FIX
 
         // siteNames.splice(siteNames.indexOf(randomSiteName), 1); //permanently removes name from array;
-        newQuest.targetSite = new Site(randomObject(siteNames)); //FIX
+        newQuest.targetSite = randomObject(allSites); //FIX
 
         if (newQuest.targetCharacter != null) {
             newQuest.name = newQuest.name.replace("[C]", newQuest.targetCharacter.name)
@@ -459,23 +462,11 @@ class Item {
     }
 }
 
-class Character {
-    constructor(name) {
-        this.name = name;
-        CastOfCharacters.push(this);
-    }
-}
 
-class Site {
-    constructor(name) {
-        this.name = name;
-    }
-}
+
+
 
 //Item Definitions
-
-
-//to implement
 var IDef_UnderworldFavor = new ItemDefinition("a favor from the underworld");
 var IDef_NobleFavor = new ItemDefinition("a favor from a noble");
 var IDef_CommonFavor = new ItemDefinition("the goodwill of the common folk");
@@ -497,16 +488,11 @@ var IDef_BountyNotice = new ItemDefinition("a bounty notice");
 var IDef_Drugs = new ItemDefinition("some potent drugs");
 var IDef_Intimidation = new ItemDefinition("intimidation");
 
-//var IDef_Blackmail = new ItemDefinition("blackmail");
 var IDef_SecretDocuments = new ItemDefinition("secret documents");
 var IDef_TreasureMap = new ItemDefinition("treasure map");
 var IDef_IncriminatingEvidence = new ItemDefinition("incriminating evidence against [C]");
 
-//var IDef_CommonKnowledge = new ItemDefinition("common knowledge"); //like rumors
-//var IDef_UncommonKnowledge = new ItemDefinition("uncommon knowledge"); //like from an informant
-
 var IDef_WoundVillain = new ItemDefinition("the wounding of the villain");
-
 
 var IDef_LocationOfCharacter = new ItemDefinition("awareness of [C]'s location");
 var IDef_WeaknessOfCharacter = new ItemDefinition("the key to [C]'s weakness");
@@ -532,9 +518,7 @@ var IDef_PeaceNaturalDisaster = new ItemDefinition("the end of the natural disas
 
 
 var IG_Info = [IDef_LocationOfCharacter, IDef_WeaknessOfCharacter, IDef_IdentityOfCharacter, IDef_Lore, IDef_EvilSource]; //IDef_Lore
-
 var IG_CommonKnowledge = [IDef_BountyNotice]; //like rumors
-
 var IG_MagicLoot = [IDef_MagicPotion, IDef_MagicMirror, IDef_MagicGem, IDef_EnchantedSword, IDef_AncientRelic, IDef_Egg];
 
 var IG_UnderworldGoods = [IDef_TreasureMap, IDef_SecretDocuments, IDef_Drugs, IDef_IncriminatingEvidence, IDef_AccessToSite, IDef_LocationOfCharacter, IDef_WeaknessOfCharacter, IDef_IdentityOfCharacter]
@@ -543,36 +527,12 @@ var IG_WizardRewards = [IDef_RareIngredients, IDef_TrueName, IDef_Prophecy, IDef
 var IG_Documents = [IDef_TreasureMap, IDef_SecretDocuments, IDef_IncriminatingEvidence]
 
 
+
 var IG_RareAndValuable = IG_Info.concat(IG_MagicLoot).concat([IDef_AccessToSite, IDef_PowerfulAlly]);
 
 
 
 //Quest Definitions
-//var QDef_DeusExMachina = new QuestDefinition("deus ex machina", AllItemDefs, AllItemDefs);
-
-
-var QDef_GenericKill = new QuestDefinition("kills [C]", [], [IDef_ProofOfMurder, IDef_GuardsOvercome]);
-var QDef_BrazenKill = new QuestDefinition("brazenly attacks [C]", [], [IDef_ProofOfMurder, IDef_GuardsOvercome, IDef_WoundVillain]);
-var QDef_AmbushKill = new QuestDefinition("ambushes [C]", [], [IDef_ProofOfMurder, IDef_GuardsOvercome, IDef_WoundVillain]);
-var QDef_CaptureFugitive = new QuestDefinition("apprehends a wanted scofflaw", [IDef_LocationOfCharacter], [IDef_CapturedFugitive]);
-var QDef_SneakPastGuards = new QuestDefinition("sneaks past the guards", [], [IDef_GuardsOvercome]);
-var QDef_GenericAssassinate = new QuestDefinition("assassinates [C]", [IDef_LocationOfCharacter, IDef_AccessToSite], [IDef_ProofOfMurder, IDef_Intimidation]);
-
-var QDef_SootheSpirits = new QuestDefinition("soothe the rioting spirits", [IDef_AccessToSite], [IDef_PeaceSpirits]);
-var QDef_DruidicRite = new QuestDefinition("perform an ancient druidic rite", [IDef_Lore, IDef_AccessToSite], [IDef_PeaceNaturalDisaster]);
-
-var QDef_MedusaFight = new QuestDefinition("battles the medusa", [IDef_MagicMirror], [IDef_ProofOfMurder]);
-
-var QDef_FreedomLabyrinth = new QuestDefinition("escapes the labyrinth after being thrown inside", [], [IDef_Freedom]);
-var QDef_FreedomLocation = new QuestDefinition("escapes from [S]", [], [IDef_Freedom]);
-var QDef_FreedomGuards = new QuestDefinition("escapes from [S]", [IDef_GuardsOvercome], [IDef_Freedom]);
-var QDef_FreedomJailer = new QuestDefinition("fools the jailer after being captured", [], [IDef_Freedom]);
-var QDef_FreedomTorturer = new QuestDefinition("overpowers the torturer after being betrayed and captured", [], [IDef_Freedom]);
-var QDef_FreedomColliseum = new QuestDefinition("battles through the colliseum after being captured", [], [IDef_Freedom]);
-var QDef_FreedomDungeon = new QuestDefinition("navigates the dungeon after being captured", [], [IDef_Freedom]);
-var QDef_FreedomIllusion = new QuestDefinition("escapes an idyllic illusion", [], [IDef_Freedom]);
-
-
 //Boss Fights
 var QDef_BossFightPlanning = new QuestDefinition("defeats Usurper [C] using knowledge and planning", [IDef_IdentityOfCharacter, IDef_LocationOfCharacter, IDef_WeaknessOfCharacter], AllItemDefs);
 QDef_BossFightPlanning.headline = "defeat the Usurper [C] with knowledge and planning, having seen the peasantry suffer under their rule";
@@ -600,6 +560,30 @@ var QG_BossFights = [QDef_BossFightPlanning, QDef_BossFightRelics, QDef_BossFigh
     QDef_BossFightEscape, QDef_BossFightPlague, QDef_BossFightBandit, QDef_BossFightDruid];
 
 
+//Basic Quests
+//var QDef_DeusExMachina = new QuestDefinition("deus ex machina", AllItemDefs, AllItemDefs);
+
+var QDef_GenericKill = new QuestDefinition("kills [C]", [], [IDef_ProofOfMurder, IDef_GuardsOvercome]);
+var QDef_BrazenKill = new QuestDefinition("brazenly attacks [C]", [], [IDef_ProofOfMurder, IDef_GuardsOvercome, IDef_WoundVillain]);
+var QDef_AmbushKill = new QuestDefinition("ambushes [C]", [], [IDef_ProofOfMurder, IDef_GuardsOvercome, IDef_WoundVillain]);
+var QDef_CaptureFugitive = new QuestDefinition("apprehends a wanted scofflaw", [IDef_LocationOfCharacter], [IDef_CapturedFugitive]);
+var QDef_SneakPastGuards = new QuestDefinition("sneaks past the guards", [], [IDef_GuardsOvercome]);
+var QDef_GenericAssassinate = new QuestDefinition("assassinates [C]", [IDef_LocationOfCharacter, IDef_AccessToSite], [IDef_ProofOfMurder, IDef_Intimidation]);
+
+var QDef_SootheSpirits = new QuestDefinition("soothe the rioting spirits", [IDef_AccessToSite], [IDef_PeaceSpirits]);
+var QDef_DruidicRite = new QuestDefinition("perform an ancient druidic rite", [IDef_Lore, IDef_AccessToSite], [IDef_PeaceNaturalDisaster]);
+
+var QDef_MedusaFight = new QuestDefinition("battles the medusa", [IDef_MagicMirror], [IDef_ProofOfMurder]);
+
+var QDef_FreedomLabyrinth = new QuestDefinition("escapes the labyrinth after being thrown inside", [], [IDef_Freedom]);
+var QDef_FreedomLocation = new QuestDefinition("escapes from [S]", [], [IDef_Freedom]);
+var QDef_FreedomGuards = new QuestDefinition("escapes from [S]", [IDef_GuardsOvercome], [IDef_Freedom]);
+var QDef_FreedomJailer = new QuestDefinition("fools the jailer after being captured", [], [IDef_Freedom]);
+var QDef_FreedomTorturer = new QuestDefinition("overpowers the torturer after being betrayed and captured", [], [IDef_Freedom]);
+var QDef_FreedomColliseum = new QuestDefinition("battles through the colliseum after being captured", [], [IDef_Freedom]);
+var QDef_FreedomDungeon = new QuestDefinition("navigates the dungeon after being captured", [], [IDef_Freedom]);
+var QDef_FreedomIllusion = new QuestDefinition("escapes an idyllic illusion", [], [IDef_Freedom]);
+
 var QDef_GenericBeastFight = new QuestDefinition("kills a mythical beast", [], IG_MagicLoot.concat(IDef_Fame));
 var QDef_DragonFight = new QuestDefinition("defeats the dragon", [IDef_AccessToSite], IG_MagicLoot.concat(IDef_Fame));
 var QDef_FollowTreasureMap = new QuestDefinition("uncovers a hoard", [IDef_TreasureMap, IDef_AccessToSite], IG_MagicLoot);
@@ -610,9 +594,6 @@ QDef_MagicItemTrade.maxItemsRequired = 1;
 
 
 var QDef_Heroics = new QuestDefinition("wins great prestige", [IDef_WoundVillain], [IDef_Fame]);
-
-//IDef_WoundVillain
-
 
 var QDef_InterrogateCharacter = new QuestDefinition("interrogates [C]", [IDef_LocationOfCharacter], IG_Info);
 var QDef_TrackCharacter = new QuestDefinition("tracks [C]", [IDef_IdentityOfCharacter], [IDef_LocationOfCharacter]);
@@ -661,7 +642,7 @@ var QDef_LocalPostings = new QuestDefinition("reads local postings", [], IG_Comm
 var QDef_HearRumor = new QuestDefinition("hears rumors", [], IG_CommonKnowledge)
 
 //Favors
-var QDef_RallyTheCommonFolk = new QuestDefinition("rallies the common folk", [IDef_CommonFavor], [IDef_PowerfulAlly,IDef_WoundVillain]);
+var QDef_RallyTheCommonFolk = new QuestDefinition("rallies the common folk", [IDef_CommonFavor], [IDef_PowerfulAlly, IDef_WoundVillain]);
 
 var QDef_CashInUnderworldFavor = new QuestDefinition("cashes in underworld favor", [IDef_UnderworldFavor], IG_UnderworldGoods)
 var QDef_FavorForUnderworldContact = new QuestDefinition("does a job for an underworld contact", [], [IDef_UnderworldFavor])
@@ -829,9 +810,23 @@ var generateOutput = "";
 
 var chapterCount = 5;
 
+var theWorld;
+var currentSite;
+var allSites;
+var startingSite;
+var startingSociety;
+
+var protagonists;
+var primaryCast;
+var primaryAllies;
+var primaryEnemies;
+var primaryNeutrals;
+
+
 function GenerateCampaign() {
     generateOutput = "";
     GenerateSiteNames();
+    WorldBuilder();
 
     chapterCount = parseInt(document.getElementById("chapterCount").value, 10);
 
@@ -846,6 +841,352 @@ function GenerateCampaign() {
     //writeln("Campaign Complete!");
     document.getElementById('SummaryOutput').innerHTML = generateOutput;
 }
+
+
+function WorldBuilder() {
+    //Design the World
+    allSites = [];
+
+    theWorld = new Site("The World");
+
+    var majorRegions = Math.floor(5 + (Math.random() * 3));
+    for (var i = 0; i < majorRegions; i++) {
+        var newSite = new Site(randomObject(siteNames)); 
+        theWorld.subsites.push(newSite);
+    }
+
+    var primarySite = theWorld.subsites[0];
+
+
+    for (var i = 0; i < theWorld.subsites.length; i++) { //for each region of the world
+        var majorSocietyCount = Math.floor(Math.random() * 1.9); //make some major societies
+        if (i == 0)
+            majorSocietyCount = 1;
+
+        var majorRegion = theWorld.subsites[i];
+
+        for (var j = 0; j < majorSocietyCount; j++) {
+            var newSociety = new SocialGroup(randomObject(politicalNames) + " of " + majorRegion.name);
+            majorRegion.AddSociety(newSociety);
+            if (startingSite == null) {
+                startingSite = majorRegion;
+                startingSociety = newSociety;
+            }
+
+
+            if (Math.random() < 0.4 && i != 0) {
+
+                FillSocietyWithNewCharacters(newSociety, Math.floor(2 + Math.random() * 10));
+            }
+            else {
+
+                //newSociety.name = (randomObject(politicalNames) + " of " + newSubsite.name);
+
+                var subSocietyCount = 2 + Math.floor(Math.random() * 3);
+                for (var k = 0; k < subSocietyCount; k++) {
+                    var newSubsite = new Site(randomObject(siteNames)); //create new site within site
+                    theWorld.subsites[i].AddSubsite(newSubsite);
+
+                    var newSubSociety = new SocialGroup(randomObject(factionNames) + " of " + newSubsite.name);
+                    newSubsite.AddSociety(newSubSociety);
+                    FillSocietyWithNewCharacters(newSubSociety, Math.floor(2 + Math.random() * 10));
+                    newSociety.constituentGroups.push(newSubSociety);
+                }
+            }
+
+        }
+    }
+
+    CastBuilder();
+    DescribeCast();
+
+    DescribeSite(theWorld, 1, true, true);
+}
+
+function DescribeCast() {
+    for (var i = 0; i < protagonists.length; i++) {
+        var hero = protagonists[i];
+        writeln("PROTAGONIST - " + hero.name);
+
+        writeln("Allies...");
+        for (var j = 0; j < hero.allies.length; j++) {
+            writebullet(hero.allies[j].name);
+        }
+
+        writeln("Enemies...");
+        for (var j = 0; j < hero.enemies.length; j++) {
+            writebullet(hero.enemies[j].name);
+        }
+    }
+}
+
+function CastBuilder() {
+    protagonists = [];
+    primaryAllies = [];
+    primaryEnemies = [];
+    primaryNeutrals = [];
+
+    for (var i = 0; i < 4; i++) {
+        var newPC = new Character(randomObject(names));
+        protagonists.push(newPC);
+
+        for (var j = 0; j < 3; j++) {
+            var newAlly = new Character(randomObject(names));
+            newPC.allies.push(newAlly);
+            primaryAllies.push(newAlly);
+        }
+
+        for (var j = 0; j < 1; j++) {
+            var newEnemy = new Character(randomObject(names));
+            newPC.enemies.push(newEnemy);
+            primaryEnemies.push(newEnemy);
+        }
+    }
+}
+
+
+////FANTASY ADVENTURE WORLD CREATOR
+
+class Site {
+    constructor(name) {
+        this.name = name;
+        this.subsites = [];
+        this.oversite = [];
+        this.societies = [];
+        allSites.push(this);
+    }
+
+    AddSociety(society) {
+        this.societies.push(society);
+        society.operatingRegion = this;
+    }
+
+    AddSubsite(subsite) {
+        this.subsites.push(subsite);
+        subsite.oversite.push(this);
+    }
+
+}
+
+function DescribeSite(site, level, recursive, societies) {
+    write("<h" + level + ">" + site.name + "</h" + level + ">");
+    writeln("A magical place...");
+
+    if (societies) {
+        for (var i = 0; i < site.societies.length; i++)
+            DescribeSociety(site.societies[i], level + 1);
+    }
+
+
+    if (recursive) {
+        for (var i = 0; i < site.subsites.length; i++) {
+            DescribeSite(site.subsites[i], level + 1, recursive, societies);
+        }
+    }
+}
+
+
+
+
+
+function FillSocietyWithNewCharacters(society, size) {
+    var newCharacters = [];
+    for (var i = 0; i < size; i++) {
+        var newChar = new Character(randomObject(names));
+        newCharacters.push(newChar);
+    }
+
+    for (var i = 0; i < newCharacters.length; i++) {
+        var rank = 100 - (i * (100 / 8));
+        society.AddNewMember(newCharacters[i], rank);
+    }
+
+
+}
+
+function DescribeSociety(society, level) {
+    write("<h" + level + ">" + society.name + "</h" + level + ">");
+    writeln("A curious people...");
+    for (var i = 0; i < society.membership.length; i++) {
+        society.membership[i].DescribePosition();
+    }
+
+    if (society.constituentGroups.length > 0) {
+        writeln("Consisting of the following groups:");
+    }
+    for (var i = 0; i < society.constituentGroups.length; i++) {
+        writeln(society.constituentGroups[i].name);
+    }
+
+}
+
+
+class Opinion {
+    constructor(subject, sentiment, respect) {
+        this.subject = subject;
+        this.sentiment = sentiment;
+        this.respect = respect;
+    }
+
+    Change(sentiment, respect) {
+        this.sentiment += sentiment;
+        this.respect += respect;
+    }
+}
+
+class Character {
+    constructor(name) {
+        this.name = name;
+        this.socialPositions = [];
+        this.opinions = {};
+        this.biases = {};
+        this.allies = [];
+        this.enemies = [];
+
+        CastOfCharacters.push(this);
+    }
+
+    JoinGroup(theGroup) {
+        theGroup.AddNewMember(this);
+        this.GainOpinion(theGroup, 40, 40);
+    }
+
+    GainOpinion(character, sentiment, respect) {
+        if (!(character in this.opinions))
+            this.opinions[character] = (new Opinion(character, 0, 0));
+        this.opinions[character].Change(sentiment, respect);
+    }
+
+    GainBias(group, sentiment, respect) {
+        if (!(group in this.bias))
+            this.biases[group] = (new Opinion(group, 0, 0));
+        this.biases[group].Change(sentiment, respect);
+    }
+
+}
+
+class SocialGroup {
+    constructor(name) {
+        this.name = name;
+        this.power; //0-100
+        this.membership = [];
+        this.previousMembership = [];
+        this.trueMaster;
+        this.biases = {};
+        this.governingGroups = [];
+        this.constituentGroups = [];
+        this.maleMaster = "Lord";
+        this.femaleMaster = "Lady";
+        this.membersMayQuit = false;
+        this.idealMasterCount = 1;
+        this.idealInferiorCount = 3;
+        this.maxTiers = 4;
+        this.maxRank = 100;
+        this.operatingRegion;
+        this.importantSites = [];
+    }
+
+    AddSubgroup(subgroup) {
+        this.constituentGroups.push(subgroup);
+        subgroup.governingGroups.push(this);
+    }
+
+    AddTrueMaster(character) {
+        this.AddNewMember(character, maxRank);
+        this.trueMaster = character;
+    }
+
+    AddNewMember(character, rank) {
+        var position = new SocialPosition(character, rank, this);
+        this.FindSuitableMasters(position);
+        this.FindSuitableInferiors(position);
+        this.membership.push(position);
+        character.socialPositions.push(this);
+        // writeln(this.name + " added " + character.name + " at rank " + rank);
+    }
+
+    FindSuitableMasters(position) {
+        for (var i = 0; i < this.membership.length; i++) {
+            if (position.masters.length >= this.idealMasterCount)
+                break;
+            var member = this.membership[i];
+            if (member.rank > position.rank && member.inferiors.length < this.idealInferiorCount)
+                position.BecomeInferiorTo(member);
+        }
+    }
+
+    FindSuitableInferiors(position) {
+        for (var i = 0; i < this.membership.length; i++) {
+            if (position.inferiors.length >= this.idealInferiorCount)
+                break;
+            var member = this.membership[i];
+            if (member.rank < position.rank && member.masters.length < this.idealMasterCount)
+                position.BecomeMasterOf(member);
+        }
+    }
+
+
+}
+
+class SocialPosition {
+    constructor(character, rank, group) {
+        this.character = character;
+        this.group = group;
+        this.rank = rank; //goes from 0-100
+        this.masters = []; //characters
+        this.inferiors = []; //characters
+    }
+
+    BecomeMasterOf(inferiorMember) {
+        this.inferiors.push(inferiorMember);
+        inferiorMember.masters.push(this);
+
+        this.character.GainOpinion(inferiorMember, 5, -5);
+        inferiorMember.character.GainOpinion(this, -5, 5);
+
+        /*writeln(this.character.name
+            + " (r_" + this.rank + ")"
+            + " became the master of "
+            + inferiorMember.character.name
+            + " (r_" + inferiorMember.rank + ") in " + this.group.name);*/
+    }
+
+    BecomeInferiorTo(master) {
+        master.BecomeMasterOf(this)
+    }
+
+    DescribePosition() {
+        var name = this.character.name;
+        var ranking = "rank " + this.rank;
+        var output = name + " is " + ranking + " in " + this.group.name + ". "
+        if (this.masters.length > 0) {
+            output += "Their master is "
+            for (var i = 0; i < this.masters.length; i++) {
+                output += this.masters[i].character.name;
+                if (i < this.masters.length - 1)
+                    output += ", ";
+            }
+            output += ". ";
+        }
+        else
+            output += "They are without master. ";
+
+        if (this.inferiors.length > 0) {
+            output += "Subordinates include "
+            for (var i = 0; i < this.inferiors.length; i++) {
+                output += this.inferiors[i].character.name;
+                if (i < this.inferiors.length - 1)
+                    output += ", ";
+            }
+            output += ". ";
+        }
+        writeln(output);
+    }
+
+
+}
+
+
 
 
 //Output Methods
